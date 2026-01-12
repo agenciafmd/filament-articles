@@ -1,0 +1,30 @@
+{
+    "name": "agenciafmd/filament-articles",
+    "description": "Filament - Articles",
+    "authors": [
+        {
+            "name": "Irineu Martins Junior",
+            "email": "irineu@fmd",
+            "homepage": "https://fmd.ag/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "agenciafmd/filament-admix": "v1.x-dev|dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Agenciafmd\\Articles\\": "src/",
+            "Agenciafmd\\Articles\\Database\\Factories\\": "database/factories/",
+            "Agenciafmd\\Articles\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Agenciafmd\\Articles\\Providers\\ArticleServiceProvider"
+            ]
+        }
+    }
+}
