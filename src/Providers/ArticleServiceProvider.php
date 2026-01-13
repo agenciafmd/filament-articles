@@ -24,7 +24,7 @@ final class ArticleServiceProvider extends ServiceProvider
 
     private function bootProviders(): void
     {
-//        $this->app->register(FilamentPanelProvider::class);
+        //
     }
 
     private function bootMigrations(): void
