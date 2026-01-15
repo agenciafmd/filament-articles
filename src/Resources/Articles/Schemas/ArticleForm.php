@@ -8,12 +8,15 @@ use Agenciafmd\Admix\Resources\Schemas\Components\DateTimePickerDisabled;
 use Agenciafmd\Admix\Resources\Schemas\Components\ImageUploadMultipleWithDefault;
 use Agenciafmd\Admix\Resources\Schemas\Components\ImageUploadWithDefault;
 use Agenciafmd\Admix\Resources\Schemas\Components\RichEditorWithDefault;
+use Agenciafmd\Articles\Services\ArticleService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 
 final class ArticleForm
@@ -26,6 +29,14 @@ final class ArticleForm
                     ->schema([
                         TextInput::make('title')
                             ->translateLabel()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                if (($get('slug') ?? '') !== str($old)->slug()->toString()) {
+                                    return;
+                                }
+
+                                $set('slug', str($state)->slug()->toString());
+                            })
                             ->autofocus()
                             ->minLength(3)
                             ->maxLength(255)
@@ -53,11 +64,10 @@ final class ArticleForm
                         ImageUploadMultipleWithDefault::make(name: 'images', directory: 'user/images', fileNameField: 'title'),
                         TagsInput::make('tags')
                             ->translateLabel()
+                            ->suggestions(fn (): array => ArticleService::make()
+                                ->tags()
+                                ->toArray())
                             ->columnSpanFull(),
-                        //                        FileUpload::make('image')
-                        //                            ->image(),
-                        //                        Textarea::make('images')
-                        //                            ->columnSpanFull(),
                     ])
                     ->collapsible()
                     ->columns()
@@ -83,37 +93,5 @@ final class ArticleForm
                     ->columns(),
             ])
             ->columns(3);
-
-        //        return $schema
-        //            ->components([
-        //                TextInput::make('is_active')
-        //                    ->required()
-        //                    ->numeric()
-        //                    ->default(1),
-        //                TextInput::make('star')
-        //                    ->required()
-        //                    ->numeric()
-        //                    ->default(0),
-        //                TextInput::make('title')
-        //                    ->required(),
-        //                TextInput::make('subtitle'),
-        //                TextInput::make('author'),
-        //                Textarea::make('summary')
-        //                    ->columnSpanFull(),
-        //                Textarea::make('content')
-        //                    ->columnSpanFull(),
-        //                TextInput::make('video'),
-        //                DateTimePicker::make('published_at'),
-        //                Textarea::make('tags')
-        //                    ->columnSpanFull(),
-        //                FileUpload::make('image')
-        //                    ->image(),
-        //                Textarea::make('images')
-        //                    ->columnSpanFull(),
-        //                TextInput::make('slug')
-        //                    ->required(),
-        //                TextInput::make('order')
-        //                    ->numeric(),
-        //            ]);
     }
 }
