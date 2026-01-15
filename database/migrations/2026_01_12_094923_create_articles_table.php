@@ -20,30 +20,27 @@ return new class extends Migration
                 ->default(false)
                 ->unsigned()
                 ->index();
-            $table->string('title', 255);
-            $table->string('subtitle', 255)
+            $table->string('title');
+            $table->string('subtitle')
                 ->nullable();
-            $table->string('author', 255)
+            $table->string('author')
                 ->nullable();
             $table->text('summary')
                 ->nullable();
             $table->longText('content')
                 ->nullable();
-            $table->string('video', 150)
+            $table->string('video')
                 ->nullable();
             $table->timestamp('published_at')
                 ->nullable();
             $table->text('tags')
                 ->nullable();
-            $table->string('image', 255)
+            $table->text('image')
                 ->nullable();
             $table->text('images')
                 ->nullable();
-            $table->string('slug', 255)
+            $table->string('slug')
                 ->unique()
-                ->index();
-            $table->integer('order')
-                ->nullable()
                 ->index();
             $table->timestamps();
             $table->softDeletes();

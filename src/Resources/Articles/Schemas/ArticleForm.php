@@ -47,21 +47,32 @@ final class ArticleForm
                             ->required(),
                         TextInput::make('subtitle')
                             ->translateLabel()
+                            ->required()
                             ->maxLength(255)
+                            ->visible(config('filament-articles.subtitle.visible', false))
                             ->columnSpanFull(),
                         Textarea::make('summary')
                             ->translateLabel()
+                            ->required()
                             ->rows(5)
                             ->columnSpanFull(),
-                        RichEditorWithDefault::make(name: 'content', directory: 'user/content')
+                        RichEditorWithDefault::make(name: 'content', directory: 'article/content')
                             ->translateLabel()
+                            ->required()
                             ->columnSpanFull(),
-
-                        //                        TextInput::make('video'),
-                        //                        Textarea::make('tags')
-                        //                            ->columnSpanFull(),
-                        ImageUploadWithDefault::make(name: 'image', directory: 'user/image', fileNameField: 'title'),
-                        ImageUploadMultipleWithDefault::make(name: 'images', directory: 'user/images', fileNameField: 'title'),
+                        TextInput::make('video')
+                            ->translateLabel()
+                            ->visible(config('filament-articles.video.visible', false)),
+                        ImageUploadWithDefault::make(name: 'image', directory: 'article/image', fileNameField: 'title')
+                            ->imageEditorAspectRatioOptions(config('filament-articles.image.aspect_ratio_options', ['16:9']))
+                            ->imageEditorViewportWidth(config('filament-articles.image.width', 1920))
+                            ->imageEditorViewportHeight(config('filament-articles.image.height', 1080))
+                            ->visible(config('filament-articles.image.visible', false)),
+                        ImageUploadMultipleWithDefault::make(name: 'images', directory: 'article/images', fileNameField: 'title')
+                            ->imageEditorAspectRatioOptions(config('filament-articles.images.aspect_ratio_options', ['16:9']))
+                            ->imageEditorViewportWidth(config('filament-articles.images.width', 1920))
+                            ->imageEditorViewportHeight(config('filament-articles.images.height', 1080))
+                            ->visible(config('filament-articles.images.visible', false)),
                         TagsInput::make('tags')
                             ->translateLabel()
                             ->suggestions(fn (): array => ArticleService::make()
