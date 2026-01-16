@@ -8,6 +8,7 @@ use Agenciafmd\Admix\Resources\Schemas\Components\DateTimePickerDisabled;
 use Agenciafmd\Admix\Resources\Schemas\Components\ImageUploadMultipleWithDefault;
 use Agenciafmd\Admix\Resources\Schemas\Components\ImageUploadWithDefault;
 use Agenciafmd\Admix\Resources\Schemas\Components\RichEditorWithDefault;
+use Agenciafmd\Admix\Resources\Schemas\Components\YoutubeInput;
 use Agenciafmd\Articles\Services\ArticleService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TagsInput;
@@ -60,8 +61,7 @@ final class ArticleForm
                             ->translateLabel()
                             ->required()
                             ->columnSpanFull(),
-                        TextInput::make('video')
-                            ->translateLabel()
+                        YouTubeInput::make()
                             ->visible(config('filament-articles.video.visible', false)),
                         ImageUploadWithDefault::make(name: 'image', directory: 'article/image', fileNameField: 'title')
                             ->imageEditorAspectRatioOptions(config('filament-articles.image.aspect_ratio_options', ['16:9']))
