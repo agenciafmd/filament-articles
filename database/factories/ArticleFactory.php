@@ -18,16 +18,14 @@ final class ArticleFactory extends Factory
             'star' => fake()->boolean(),
             'title' => $title,
             'subtitle' => fake()->sentence(8),
-            'author' => fake()->firstName . ' ' . fake()->lastName,
             'summary' => fake()->text(),
             'content' => fake()->paragraphs(6, true),
-            'video' => null, // usar youtube fake()->regexify('[A-Za-z0-9]{150}'),
+            'video' => fake()->youtubeRandomUri(),
             'published_at' => fake()->dateTimeBetween(now()->subMonths(6), now()->addDay()),
             'tags' => null, // fake()->text(),
             'image' => null, // fake()->regexify('[A-Za-z0-9]{255}'),
             'images' => null, // fake()->text(),
             'slug' => $slug,
-            'order' => null, // fake()->numberBetween(-10000, 10000),
         ];
     }
 }
