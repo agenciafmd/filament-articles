@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Agenciafmd\Articles\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 final class ArticleFactory extends Factory
 {
@@ -17,14 +18,16 @@ final class ArticleFactory extends Factory
             'is_active' => fake()->boolean(),
             'star' => fake()->boolean(),
             'title' => $title,
-            'subtitle' => fake()->sentence(8),
+            'subtitle' => config('filament-articles.subtitle.visible') ? fake()->sentence(8) : null,
             'summary' => fake()->text(),
-            'content' => fake()->paragraphs(6, true),
-            'video' => fake()->youtubeRandomUri(),
+            'content' => fake()->htmlParagraphs(),
+            'video' => config('filament-articles.video.visible') ? fake()->youtubeRandomUri() : null,
             'published_at' => fake()->dateTimeBetween(now()->subMonths(6), now()->addDay()),
-            'tags' => null, // fake()->text(),
-            'image' => null, // fake()->regexify('[A-Za-z0-9]{255}'),
-            'images' => null, // fake()->text(),
+            'tags' => fake()->tags(),
+            'image' => config('filament-articles.image.visible') ? Storage::putFile('fake', fake()->localImage(ratio: '16:9')) : null,
+            'images' => config('filament-articles.images.visible') ? collect(range(0, fake()->numberBetween(1, 6)))
+                ->map(fn () => Storage::putFile('fake', fake()->localImage(ratio: '16:9')))
+                ->toArray() : [],
             'slug' => $slug,
         ];
     }
