@@ -94,9 +94,6 @@ final class ArticleForm
                         DateTimePicker::make('published_at')
                             ->translateLabel()
                             ->columnSpanFull(),
-                        //                        TextInput::make('author')
-                        //                            ->translateLabel()
-                        //                            ->maxLength(255),
                         DateTimePickerDisabled::make('created_at'),
                         DateTimePickerDisabled::make('updated_at'),
                     ])
