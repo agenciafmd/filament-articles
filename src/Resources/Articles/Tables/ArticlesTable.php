@@ -32,7 +32,7 @@ final class ArticlesTable
                     ->searchable(),
                 TextColumn::make('published_at')
                     ->translateLabel()
-                    ->dateTime(config('admix.timestamp.format'))
+                    ->dateTime(config('filament-admix.timestamp.format'))
                     ->sortable(),
                 ToggleColumn::make('star')
                     ->translateLabel()
