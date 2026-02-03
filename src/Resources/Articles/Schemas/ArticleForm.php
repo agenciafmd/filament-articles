@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Agenciafmd\Articles\Resources\Articles\Schemas;
 
-use Agenciafmd\Admix\Resources\Schemas\Components\DateTimePickerDisabled;
-use Agenciafmd\Admix\Resources\Schemas\Components\ImageUploadMultipleWithDefault;
-use Agenciafmd\Admix\Resources\Schemas\Components\ImageUploadWithDefault;
-use Agenciafmd\Admix\Resources\Schemas\Components\RichEditorWithDefault;
-use Agenciafmd\Admix\Resources\Schemas\Components\YoutubeInput;
+use Agenciafmd\Admix\Resources\Infolists\Components\DateTimeEntry;
+use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadMultipleWithDefault;
+use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadWithDefault;
+use Agenciafmd\Admix\Resources\Forms\Components\RichEditorWithDefault;
+use Agenciafmd\Admix\Resources\Forms\Components\YoutubeInput;
 use Agenciafmd\Articles\Services\ArticleService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TagsInput;
@@ -94,8 +94,8 @@ final class ArticleForm
                         DateTimePicker::make('published_at')
                             ->translateLabel()
                             ->columnSpanFull(),
-                        DateTimePickerDisabled::make('created_at'),
-                        DateTimePickerDisabled::make('updated_at'),
+                        DateTimeEntry::make('created_at'),
+                        DateTimeEntry::make('updated_at'),
                     ])
                     ->collapsible()
                     ->columns(),
