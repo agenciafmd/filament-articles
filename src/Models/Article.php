@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Agenciafmd\Articles\Models;
 
 use Agenciafmd\Articles\Database\Factories\ArticleFactory;
@@ -13,7 +15,7 @@ use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 #[UseFactory(ArticleFactory::class)]
-class Article extends Model implements AuditableContract
+final class Article extends Model implements AuditableContract
 {
     use Auditable, HasFactory, Prunable, SoftDeletes;
 

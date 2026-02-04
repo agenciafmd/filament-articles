@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Agenciafmd\Articles\Resources\Articles\Schemas;
 
-use Agenciafmd\Admix\Resources\Infolists\Components\DateTimeEntry;
 use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadMultipleWithDefault;
 use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadWithDefault;
 use Agenciafmd\Admix\Resources\Forms\Components\RichEditorWithDefault;
-use Agenciafmd\Admix\Resources\Forms\Components\YoutubeInput;
+use Agenciafmd\Admix\Resources\Forms\Components\YouTubeInput;
+use Agenciafmd\Admix\Resources\Infolists\Components\DateTimeEntry;
 use Agenciafmd\Articles\Services\ArticleService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\TagsInput;
