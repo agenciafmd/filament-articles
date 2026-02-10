@@ -45,7 +45,7 @@ return [
 ];
 ```
 
-Após isso, o menu "Articles" aparecerá no painel, com as páginas de Listar, Criar e Editar.
+Após isso, o menu "Artigos" aparecerá no painel, com as páginas de Listar, Criar e Editar.
 
 ## Recursos incluídos
 
