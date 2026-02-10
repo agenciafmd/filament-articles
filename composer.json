@@ -1,10 +1,11 @@
 {
     "name": "agenciafmd/filament-articles",
     "description": "Filament - Articles",
+    "license": "MIT",
     "authors": [
         {
             "name": "Irineu Martins Junior",
-            "email": "irineu@fmd",
+            "email": "irineu@fmd.ag",
             "homepage": "https://fmd.ag/",
             "role": "Developer"
         }
