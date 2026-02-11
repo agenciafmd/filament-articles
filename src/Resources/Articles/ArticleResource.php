@@ -25,6 +25,8 @@ final class ArticleResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencilSquare;
 
+    protected static ?int $navigationSort = 5;
+
     protected static ?string $recordTitleAttribute = 'title';
 
     public static function getModelLabel(): string
