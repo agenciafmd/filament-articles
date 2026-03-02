@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return [
     'name' => 'Articles',
+    'navigation_group' => null,
     'subtitle' => [
         'visible' => false,
     ],

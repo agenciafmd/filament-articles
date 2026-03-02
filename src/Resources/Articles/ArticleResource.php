@@ -39,6 +39,11 @@ final class ArticleResource extends Resource
         return __('Articles');
     }
 
+    public static function getNavigationGroup(): ?string
+    {
+        return config('filament-articles.navigation_group');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return ArticleForm::configure($schema);
