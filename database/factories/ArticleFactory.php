@@ -12,7 +12,7 @@ final class ArticleFactory extends Factory
     public function definition(): array
     {
         $title = fake()->sentence(4);
-        $slug = str()->slug($title);
+        $slug = str($title)->slug();
 
         return [
             'is_active' => fake()->boolean(),
