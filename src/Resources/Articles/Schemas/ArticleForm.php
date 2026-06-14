@@ -15,6 +15,8 @@ use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
@@ -26,82 +28,90 @@ final class ArticleForm
     {
         return $schema
             ->components([
-                Section::make(__('General'))
+                Grid::make(3)
                     ->schema([
-                        TextInput::make('title')
-                            ->translateLabel()
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                                if (($get('slug') ?? '') !== str($old)->slug()->toString()) {
-                                    return;
-                                }
+                        Group::make([
+                            Section::make(__('General'))
+                                ->schema([
+                                    TextInput::make('title')
+                                        ->translateLabel()
+                                        ->live(onBlur: true)
+                                        ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                            if (($get('slug') ?? '') !== str($old)->slug()->toString()) {
+                                                return;
+                                            }
 
-                                $set('slug', str($state)->slug()->toString());
-                            })
-                            ->autofocus()
-                            ->minLength(3)
-                            ->maxLength(255)
-                            ->required(),
-                        TextInput::make('slug')
-                            ->translateLabel()
-                            ->unique()
-                            ->required(),
-                        TextInput::make('subtitle')
-                            ->translateLabel()
-                            ->required()
-                            ->maxLength(255)
-                            ->visible(config('filament-articles.subtitle.visible', false))
-                            ->columnSpanFull(),
-                        Textarea::make('summary')
-                            ->translateLabel()
-                            ->required()
-                            ->rows(5)
-                            ->columnSpanFull(),
-                        RichEditorWithDefault::make(name: 'content', directory: 'article/content')
-                            ->translateLabel()
-                            ->required()
-                            ->columnSpanFull(),
-                        YouTubeInput::make()
-                            ->visible(config('filament-articles.video.visible', false)),
-                        ImageUploadWithDefault::make(name: 'image', directory: 'article/image', fileNameField: 'title')
-                            ->afterLabel('Max. ' . config('filament-articles.image.width', 1920) . 'x' . config('filament-articles.image.height', 1080))
-                            ->imageEditorAspectRatioOptions(config('filament-articles.image.aspect_ratio_options', ['16:9']))
-                            ->imageEditorViewportWidth(config('filament-articles.image.width', 1920))
-                            ->imageEditorViewportHeight(config('filament-articles.image.height', 1080))
-                            ->visible(config('filament-articles.image.visible', false)),
-                        ImageUploadMultipleWithDefault::make(name: 'images', directory: 'article/images', fileNameField: 'title')
-                            ->afterLabel('Max. ' . config('filament-articles.images.width', 1920) . 'x' . config('filament-articles.images.height', 1080))
-                            ->imageEditorAspectRatioOptions(config('filament-articles.images.aspect_ratio_options', ['16:9']))
-                            ->imageEditorViewportWidth(config('filament-articles.images.width', 1920))
-                            ->imageEditorViewportHeight(config('filament-articles.images.height', 1080))
-                            ->visible(config('filament-articles.images.visible', false)),
-                        TagsInput::make('tags')
-                            ->translateLabel()
-                            ->suggestions(fn (): array => ArticleService::make()
-                                ->tags()
-                                ->toArray())
-                            ->columnSpanFull(),
+                                            $set('slug', str($state)->slug()->toString());
+                                        })
+                                        ->autofocus()
+                                        ->minLength(3)
+                                        ->maxLength(255)
+                                        ->required(),
+                                    TextInput::make('slug')
+                                        ->translateLabel()
+                                        ->unique()
+                                        ->required(),
+                                    TextInput::make('subtitle')
+                                        ->translateLabel()
+                                        ->required()
+                                        ->maxLength(255)
+                                        ->visible(config('filament-articles.subtitle.visible', false))
+                                        ->columnSpanFull(),
+                                    Textarea::make('summary')
+                                        ->translateLabel()
+                                        ->required()
+                                        ->rows(5)
+                                        ->columnSpanFull(),
+                                    RichEditorWithDefault::make(name: 'content', directory: 'article/content')
+                                        ->translateLabel()
+                                        ->required()
+                                        ->columnSpanFull(),
+                                    YouTubeInput::make()
+                                        ->visible(config('filament-articles.video.visible', false)),
+                                    ImageUploadWithDefault::make(name: 'image', directory: 'article/image', fileNameField: 'title')
+                                        ->afterLabel('Max. ' . config('filament-articles.image.width', 1920) . 'x' . config('filament-articles.image.height', 1080))
+                                        ->imageEditorAspectRatioOptions(config('filament-articles.image.aspect_ratio_options', ['16:9']))
+                                        ->imageEditorViewportWidth(config('filament-articles.image.width', 1920))
+                                        ->imageEditorViewportHeight(config('filament-articles.image.height', 1080))
+                                        ->visible(config('filament-articles.image.visible', false)),
+                                    ImageUploadMultipleWithDefault::make(name: 'images', directory: 'article/images', fileNameField: 'title')
+                                        ->afterLabel('Max. ' . config('filament-articles.images.width', 1920) . 'x' . config('filament-articles.images.height', 1080))
+                                        ->imageEditorAspectRatioOptions(config('filament-articles.images.aspect_ratio_options', ['16:9']))
+                                        ->imageEditorViewportWidth(config('filament-articles.images.width', 1920))
+                                        ->imageEditorViewportHeight(config('filament-articles.images.height', 1080))
+                                        ->visible(config('filament-articles.images.visible', false)),
+                                    TagsInput::make('tags')
+                                        ->translateLabel()
+                                        ->suggestions(fn (): array => ArticleService::make()
+                                            ->tags()
+                                            ->toArray())
+                                        ->columnSpanFull(),
+                                ])
+                                ->collapsible()
+                                ->columns()
+                                ->columnSpan(2),
+                        ])
+                            ->columnSpan(2),
+                        Group::make([
+                            Section::make(__('Information'))
+                                ->schema([
+                                    Toggle::make('is_active')
+                                        ->translateLabel()
+                                        ->default(true),
+                                    Toggle::make('star')
+                                        ->translateLabel()
+                                        ->default(false),
+                                    DateTimePicker::make('published_at')
+                                        ->translateLabel()
+                                        ->columnSpanFull(),
+                                    DateTimeEntry::make('created_at'),
+                                    DateTimeEntry::make('updated_at'),
+                                ])
+                                ->collapsible()
+                                ->columns(),
+                        ]),
                     ])
-                    ->collapsible()
-                    ->columns()
-                    ->columnSpan(2),
-                Section::make(__('Information'))
-                    ->schema([
-                        Toggle::make('is_active')
-                            ->translateLabel()
-                            ->default(true),
-                        Toggle::make('star')
-                            ->translateLabel()
-                            ->default(false),
-                        DateTimePicker::make('published_at')
-                            ->translateLabel()
-                            ->columnSpanFull(),
-                        DateTimeEntry::make('created_at'),
-                        DateTimeEntry::make('updated_at'),
-                    ])
-                    ->collapsible()
-                    ->columns(),
-            ])
-            ->columns(3);
+                    ->columnSpanFull(),
+            ]);
     }
 }
