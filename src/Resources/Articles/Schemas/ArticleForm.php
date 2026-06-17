@@ -80,12 +80,6 @@ final class ArticleForm
                                         ->imageEditorViewportWidth(config('filament-articles.images.width', 1920))
                                         ->imageEditorViewportHeight(config('filament-articles.images.height', 1080))
                                         ->visible(config('filament-articles.images.visible', false)),
-                                    TagsInput::make('tags')
-                                        ->translateLabel()
-                                        ->suggestions(fn (): array => ArticleService::make()
-                                            ->tags()
-                                            ->toArray())
-                                        ->columnSpanFull(),
                                 ])
                                 ->collapsible()
                                 ->columns()
@@ -106,6 +100,12 @@ final class ArticleForm
                                         ->columnSpanFull(),
                                     DateTimeEntry::make('created_at'),
                                     DateTimeEntry::make('updated_at'),
+                                    TagsInput::make('tags')
+                                        ->translateLabel()
+                                        ->suggestions(fn (): array => ArticleService::make()
+                                            ->tags()
+                                            ->toArray())
+                                        ->columnSpanFull(),
                                 ])
                                 ->collapsible()
                                 ->columns(),
