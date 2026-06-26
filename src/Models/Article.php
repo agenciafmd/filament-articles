@@ -8,6 +8,7 @@ use Agenciafmd\Admix\Traits\WithScopes;
 use Agenciafmd\Articles\Database\Factories\ArticleFactory;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
@@ -36,6 +37,15 @@ final class Article extends Model implements AuditableContract
     {
         return self::query()
             ->where('deleted_at', '<=', now()->subDays(30));
+    }
+
+    protected function url(): Attribute
+    {
+        return Attribute::make(
+            get: static fn (mixed $value, array $attributes): string => route(
+                'frontend.articles.show',
+                $attributes['slug']),
+        );
     }
 
     #[Override]
