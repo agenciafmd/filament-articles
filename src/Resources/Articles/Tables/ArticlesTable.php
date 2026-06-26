@@ -85,10 +85,7 @@ final class ArticlesTable
                 ]),
             ])
             ->defaultSort(function (Builder $query): Builder {
-                return $query->orderBy('is_active', 'desc')
-                    ->orderBy('star', 'desc')
-                    ->orderBy('published_at', 'desc')
-                    ->orderBy('title');
+                return $query->sort();
             });
     }
 }
