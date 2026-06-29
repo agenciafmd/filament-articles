@@ -6,6 +6,7 @@ namespace Agenciafmd\Articles\Models;
 
 use Agenciafmd\Admix\Traits\WithScopes;
 use Agenciafmd\Articles\Database\Factories\ArticleFactory;
+use Filament\Forms\Components\RichEditor\RichContentRenderer;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -37,6 +38,13 @@ final class Article extends Model implements AuditableContract
     {
         return self::query()
             ->where('deleted_at', '<=', now()->subDays(30));
+    }
+
+    protected function frontContent(): Attribute
+    {
+        return Attribute::make(
+            get: static fn (mixed $value, array $attributes): RichContentRenderer => RichContentRenderer::make($attributes['content']),
+        );
     }
 
     protected function url(): Attribute
