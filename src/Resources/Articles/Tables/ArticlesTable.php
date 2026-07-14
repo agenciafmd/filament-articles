@@ -84,8 +84,6 @@ final class ArticlesTable
                     RestoreBulkAction::make(),
                 ]),
             ])
-            ->defaultSort(function (Builder $query): Builder {
-                return $query->sort();
-            });
+            ->defaultSort(fn (Builder $query): Builder => $query->sort());
     }
 }
