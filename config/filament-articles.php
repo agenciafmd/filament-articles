@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'name' => 'Articles',
     'navigation_group' => null,
+    'navigation_sort' => 6,
     'subtitle' => [
         'visible' => false,
     ],

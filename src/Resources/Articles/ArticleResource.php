@@ -25,8 +25,6 @@ final class ArticleResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencilSquare;
 
-    protected static ?int $navigationSort = 6;
-
     protected static ?string $recordTitleAttribute = 'title';
 
     public static function getModelLabel(): string
@@ -37,6 +35,11 @@ final class ArticleResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('Articles');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('filament-articles.navigation_sort');
     }
 
     public static function getNavigationGroup(): ?string
