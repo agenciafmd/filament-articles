@@ -51,9 +51,7 @@ final class ArticlesTable
                     ->options(fn (): array => ArticleService::make()
                         ->tags()
                         ->toArray())
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query->when($data['value'], fn (Builder $query, $value): Builder => $query->whereJsonContains('tags', $value));
-                    }),
+                    ->query(fn (Builder $query, array $data): Builder => $query->when($data['value'], fn (Builder $query, $value): Builder => $query->whereJsonContains('tags', $value))),
                 Filter::make('published_at')
                     ->schema([
                         DateTimePicker::make('published_from')
@@ -61,17 +59,15 @@ final class ArticlesTable
                         DateTimePicker::make('published_until')
                             ->translateLabel(),
                     ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['published_from'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('published_at', '>=', $date),
-                            )
-                            ->when(
-                                $data['published_until'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('published_at', '<=', $date),
-                            );
-                    }),
+                    ->query(fn (Builder $query, array $data): Builder => $query
+                        ->when(
+                            $data['published_from'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('published_at', '>=', $date),
+                        )
+                        ->when(
+                            $data['published_until'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('published_at', '<=', $date),
+                        )),
                 TrashedFilter::make(),
             ])
             ->recordActions([

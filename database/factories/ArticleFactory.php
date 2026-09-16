@@ -27,7 +27,7 @@ final class ArticleFactory extends Factory
             'image' => config('filament-articles.image.visible') ? Storage::putFile('fake', fake()->localImage(ratio: '16:9')) : null,
             'images' => config('filament-articles.images.visible') ? collect(range(0, fake()->numberBetween(1, 6)))
                 ->map(fn () => Storage::putFile('fake', fake()->localImage(ratio: '16:9')))
-                ->toArray() : [],
+                ->all() : [],
             'slug' => $slug,
         ];
     }
