@@ -95,7 +95,7 @@ final class ArticleForm
                                         ->translateLabel()
                                         ->suggestions(fn (): array => ArticleService::make()
                                             ->tags()
-                                            ->toArray())
+                                            ->all())
                                         ->columnSpanFull(),
                                 ])
                                 ->collapsible()

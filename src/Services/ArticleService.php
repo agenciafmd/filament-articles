@@ -22,7 +22,7 @@ final class ArticleService
             ->filter()
             ->flatten()
             ->unique()
-            ->mapWithKeys(fn ($item): array => [$item => $item])
+            ->mapWithKeys(fn (string $item): array => [$item => $item])
             ->sort();
     }
 

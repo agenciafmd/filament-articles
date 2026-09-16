@@ -50,8 +50,8 @@ final class ArticlesTable
                     ->translateLabel()
                     ->options(fn (): array => ArticleService::make()
                         ->tags()
-                        ->toArray())
-                    ->query(fn (Builder $query, array $data): Builder => $query->when($data['value'], fn (Builder $query, $value): Builder => $query->whereJsonContains('tags', $value))),
+                        ->all())
+                    ->query(fn (Builder $query, array $data): Builder => $query->when($data['value'], fn (Builder $query, string $value): Builder => $query->whereJsonContains('tags', $value))),
                 Filter::make('published_at')
                     ->schema([
                         DateTimePicker::make('published_from')
@@ -62,11 +62,11 @@ final class ArticlesTable
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when(
                             $data['published_from'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('published_at', '>=', $date),
+                            fn (Builder $query, string $date): Builder => $query->whereDate('published_at', '>=', $date),
                         )
                         ->when(
                             $data['published_until'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('published_at', '<=', $date),
+                            fn (Builder $query, string $date): Builder => $query->whereDate('published_at', '<=', $date),
                         )),
                 TrashedFilter::make(),
             ])
