@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Agenciafmd\Articles\Resources\Articles\Schemas;
 
-use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadMultipleWithDefault;
-use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadWithDefault;
+use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadMultipleWithAutomaticallyResize;
+use Agenciafmd\Admix\Resources\Forms\Components\ImageUploadWithAutomaticallyResize;
 use Agenciafmd\Admix\Resources\Forms\Components\RichEditorWithDefault;
 use Agenciafmd\Admix\Resources\Forms\Components\YouTubeInput;
 use Agenciafmd\Admix\Resources\Infolists\Components\DateTimeEntry;
@@ -59,17 +59,21 @@ final class ArticleForm
                                         ->columnSpanFull(),
                                     YouTubeInput::make()
                                         ->visible(config('filament-articles.video.visible', false)),
-                                    ImageUploadWithDefault::make(name: 'image', directory: 'article/image', fileNameField: 'title')
-                                        ->afterLabel('Max. ' . config('filament-articles.image.width', 1920) . 'x' . config('filament-articles.image.height', 1080))
-                                        ->imageEditorAspectRatioOptions(config('filament-articles.image.ratio', ['16:9']))
-                                        ->imageEditorViewportWidth(config('filament-articles.image.width', 1920))
-                                        ->imageEditorViewportHeight(config('filament-articles.image.height', 1080))
+                                    ImageUploadWithAutomaticallyResize::make(
+                                        name: 'image',
+                                        directory: 'article/image',
+                                        fileNameField: 'title',
+                                        width: (string) config('filament-articles.image.width', 1920),
+                                        height: (string) config('filament-articles.image.height', 1080),
+                                    )
                                         ->visible(config('filament-articles.image.visible', false)),
-                                    ImageUploadMultipleWithDefault::make(name: 'images', directory: 'article/images', fileNameField: 'title')
-                                        ->afterLabel('Max. ' . config('filament-articles.images.width', 1920) . 'x' . config('filament-articles.images.height', 1080))
-                                        ->imageEditorAspectRatioOptions(config('filament-articles.images.ratio', ['16:9']))
-                                        ->imageEditorViewportWidth(config('filament-articles.images.width', 1920))
-                                        ->imageEditorViewportHeight(config('filament-articles.images.height', 1080))
+                                    ImageUploadMultipleWithAutomaticallyResize::make(
+                                        name: 'images',
+                                        directory: 'article/images',
+                                        fileNameField: 'title',
+                                        width: (string) config('filament-articles.images.width', 1920),
+                                        height: (string) config('filament-articles.images.height', 1080),
+                                    )
                                         ->visible(config('filament-articles.images.visible', false)),
                                 ])
                                 ->collapsible()

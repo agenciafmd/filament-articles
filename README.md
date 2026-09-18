@@ -77,22 +77,19 @@ return [
         'visible' => true,
         'width' => 1920,
         'height' => 1080,
-        'ratio' => ['16:9'],
     ],
 
     'images' => [
         'visible' => false,
         'width' => 1920,
         'height' => 1080,
-        'ratio' => ['16:9'],
     ],
 ];
 ```
 
 Observações:
 - `subtitle.visible` e `video.visible` controlam a exibição dos campos no formulário.
-- Para `image` e `images`, as chaves controlam exibição e parâmetros do editor de imagem (largura/altura/ratio).
-- O formulário usa `imageEditorAspectRatioOptions`, `imageEditorViewportWidth` e `imageEditorViewportHeight` baseados nesses valores.
+- Para `image` e `images`, as chaves controlam o crop da imagem (largura/altura).
 
 ## Auditoria
 
