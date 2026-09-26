@@ -32,7 +32,7 @@ final class ArticlesTable
                     ->searchable(),
                 TextColumn::make('published_at')
                     ->translateLabel()
-                    ->dateTime(config('filament-admix.timestamp.format'))
+                    ->dateTime(config()->string('filament-admix.timestamp.format', 'd/m/Y H:i:s'))
                     ->sortable(),
                 ToggleColumn::make('star')
                     ->translateLabel()
@@ -51,7 +51,7 @@ final class ArticlesTable
                     ->options(fn (): array => ArticleService::make()
                         ->tags()
                         ->all())
-                    ->query(fn (Builder $query, array $data): Builder => $query->when($data['value'], fn (Builder $query, string $value): Builder => $query->whereJsonContains('tags', $value))),
+                    ->query(fn (Builder $query, array $data): Builder => $query->when(self::filterValue($data, 'value'), fn (Builder $query, string $value): Builder => $query->whereJsonContains('tags', $value))),
                 Filter::make('published_at')
                     ->schema([
                         DateTimePicker::make('published_from')
@@ -61,11 +61,11 @@ final class ArticlesTable
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
                         ->when(
-                            $data['published_from'],
+                            self::filterValue($data, 'published_from'),
                             fn (Builder $query, string $date): Builder => $query->whereDate('published_at', '>=', $date),
                         )
                         ->when(
-                            $data['published_until'],
+                            self::filterValue($data, 'published_until'),
                             fn (Builder $query, string $date): Builder => $query->whereDate('published_at', '<=', $date),
                         )),
                 TrashedFilter::make(),
@@ -81,5 +81,15 @@ final class ArticlesTable
                 ]),
             ])
             ->defaultSort(fn (Builder $query): Builder => $query->sort());
+    }
+
+    /**
+     * @param  array<array-key, mixed>  $data
+     */
+    private static function filterValue(array $data, string $key): ?string
+    {
+        $value = $data[$key] ?? null;
+
+        return is_string($value) && $value !== '' ? $value : null;
     }
 }

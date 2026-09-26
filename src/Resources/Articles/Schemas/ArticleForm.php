@@ -46,7 +46,7 @@ final class ArticleForm
                                         ->translateLabel()
                                         ->required()
                                         ->maxLength(255)
-                                        ->visible(config('filament-articles.subtitle.visible', false))
+                                        ->visible(config()->boolean('filament-articles.subtitle.visible', false))
                                         ->columnSpanFull(),
                                     Textarea::make('summary')
                                         ->translateLabel()
@@ -58,23 +58,23 @@ final class ArticleForm
                                         ->required()
                                         ->columnSpanFull(),
                                     YouTubeInput::make()
-                                        ->visible(config('filament-articles.video.visible', false)),
+                                        ->visible(config()->boolean('filament-articles.video.visible', false)),
                                     ImageUploadWithAutomaticallyResize::make(
                                         name: 'image',
                                         directory: 'article/image',
                                         fileNameField: 'title',
-                                        width: (string) config('filament-articles.image.width', 1920),
-                                        height: (string) config('filament-articles.image.height', 1080),
+                                        width: (string) config()->integer('filament-articles.image.width', 1920),
+                                        height: (string) config()->integer('filament-articles.image.height', 1080),
                                     )
-                                        ->visible(config('filament-articles.image.visible', false)),
+                                        ->visible(config()->boolean('filament-articles.image.visible', false)),
                                     ImageUploadMultipleWithAutomaticallyResize::make(
                                         name: 'images',
                                         directory: 'article/images',
                                         fileNameField: 'title',
-                                        width: (string) config('filament-articles.images.width', 1920),
-                                        height: (string) config('filament-articles.images.height', 1080),
+                                        width: (string) config()->integer('filament-articles.images.width', 1920),
+                                        height: (string) config()->integer('filament-articles.images.height', 1080),
                                     )
-                                        ->visible(config('filament-articles.images.visible', false)),
+                                        ->visible(config()->boolean('filament-articles.images.visible', false)),
                                 ])
                                 ->collapsible()
                                 ->columns()

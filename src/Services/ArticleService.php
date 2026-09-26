@@ -15,17 +15,26 @@ final class ArticleService
         return resolve(self::class);
     }
 
+    /**
+     * Marcadores já usados nos artigos, sem repetição.
+     *
+     * @return Collection<string, string>
+     */
     public function tags(): Collection
     {
         return $this->queryBuilder()
             ->pluck('tags')
-            ->filter()
+            ->filter(static fn (mixed $tags): bool => is_array($tags))
             ->flatten()
+            ->filter(static fn (mixed $tag): bool => is_string($tag))
             ->unique()
-            ->mapWithKeys(fn (string $item): array => [$item => $item])
+            ->mapWithKeys(static fn (string $tag): array => [$tag => $tag])
             ->sort();
     }
 
+    /**
+     * @return Builder<Article>
+     */
     private function queryBuilder(): Builder
     {
         return Article::query();

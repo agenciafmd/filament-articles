@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace Agenciafmd\Articles\Database\Factories;
 
+use Agenciafmd\Articles\Models\Article;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @extends Factory<Article>
+ */
 final class ArticleFactory extends Factory
 {
+    protected $model = Article::class;
+
     public function definition(): array
     {
         $title = fake()->sentence(4);
