@@ -63,16 +63,16 @@ final class ArticleForm
                                         name: 'image',
                                         directory: 'article/image',
                                         fileNameField: 'title',
-                                        width: (string) config()->integer('filament-articles.image.width', 1920),
-                                        height: (string) config()->integer('filament-articles.image.height', 1080),
+                                        width: config()->integer('filament-articles.image.width', 1920),
+                                        height: config()->integer('filament-articles.image.height', 1080),
                                     )
                                         ->visible(config()->boolean('filament-articles.image.visible', false)),
                                     ImageUploadMultipleWithAutomaticallyResize::make(
                                         name: 'images',
                                         directory: 'article/images',
                                         fileNameField: 'title',
-                                        width: (string) config()->integer('filament-articles.images.width', 1920),
-                                        height: (string) config()->integer('filament-articles.images.height', 1080),
+                                        width: config()->integer('filament-articles.images.width', 1920),
+                                        height: config()->integer('filament-articles.images.height', 1080),
                                     )
                                         ->visible(config()->boolean('filament-articles.images.visible', false)),
                                 ])
