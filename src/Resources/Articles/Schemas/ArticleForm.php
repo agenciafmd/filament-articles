@@ -30,6 +30,7 @@ final class ArticleForm
                     ->schema([
                         Group::make([
                             Section::make(__('General'))
+                                ->key('general')
                                 ->schema([
                                     TextInput::make('title')
                                         ->translateLabel()
@@ -83,6 +84,7 @@ final class ArticleForm
                             ->columnSpan(2),
                         Group::make([
                             Section::make(__('Information'))
+                                ->key('information')
                                 ->schema([
                                     Toggle::make('is_active')
                                         ->translateLabel()
