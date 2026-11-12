@@ -11,16 +11,19 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
+use Override;
 
 final class EditArticle extends EditRecord
 {
     use RedirectBack;
 
+    #[Override]
     protected static string $resource = ArticleResource::class;
 
     /**
      * @var array<int, string>
      */
+    #[Override]
     protected $listeners = [
         'auditRestored',
     ];

@@ -7,12 +7,14 @@ namespace Agenciafmd\Articles\Database\Factories;
 use Agenciafmd\Articles\Models\Article;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Storage;
+use Override;
 
 /**
  * @extends Factory<Article>
  */
 final class ArticleFactory extends Factory
 {
+    #[Override]
     protected $model = Article::class;
 
     public function definition(): array
